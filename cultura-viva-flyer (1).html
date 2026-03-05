@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cultura Viva – Flyer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,800;0,900;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 48px;
+  gap: 20px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.hint {
+  color: #888;
+  font-size: 0.82rem;
+  text-align: center;
+}
+.hint strong { color: #fff; }
+
+/* ── FLYER ── */
+.flyer {
+  width: 210mm;
+  min-height: 297mm;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── BACKGROUND ─── */
+.flyer-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(160deg,
+    #fff5f0 0%, #fff9ee 25%, #f0fbff 55%, #f5f0ff 80%, #fff0f7 100%);
+}
+
+.blob { position: absolute; border-radius: 50%; filter: blur(70px); z-index: 1; }
+.b1 { width:320px;height:280px;background:rgba(255,100,80,0.22);top:-60px;left:-60px; }
+.b2 { width:260px;height:260px;background:rgba(180,80,255,0.18);top:20px;right:-50px; }
+.b3 { width:350px;height:200px;background:rgba(255,200,50,0.2);top:260px;left:10px; }
+.b4 { width:280px;height:280px;background:rgba(50,200,200,0.18);top:320px;right:-40px; }
+.b5 { width:400px;height:180px;background:rgba(255,80,150,0.15);bottom:220px;left:-80px; }
+.b6 { width:300px;height:300px;background:rgba(80,130,255,0.15);bottom:100px;right:-60px; }
+
+.dotgrid {
+  position: absolute; inset: 0; z-index: 2;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ─── CONTENT ─── */
+.content {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column;
+  min-height: 297mm;
+}
+
+/* TOP BAR */
+.top-bar {
+  background: linear-gradient(90deg, #ff4566, #ff8c42, #f7c948);
+  padding: 7px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.top-bar-text { font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.95);font-weight:600; }
+.top-dots { display:flex;gap:5px; }
+.td { width:8px;height:8px;border-radius:50%; }
+
+/* LOGO */
+.logo-zone { padding:22px 28px 0; display:flex; align-items:center; gap:12px; }
+.logo-icon {
+  width:52px;height:52px;
+  background:linear-gradient(135deg,#ff4566,#f7c948);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(255,70,100,0.35);
+  flex-shrink:0;
+}
+.logo-text-col { display:flex;flex-direction:column; }
+.logo-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:0.07em;line-height:1;
+  background:linear-gradient(135deg,#ff4566,#7b2fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.logo-sub { font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;font-weight:500;margin-top:1px; }
+
+/* HERO */
+.hero { padding:16px 28px 0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+.eyebrow-pill {
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(90deg,rgba(255,69,102,0.12),rgba(123,47,255,0.12));
+  border:1px solid rgba(255,69,102,0.3);
+  border-radius:100px; padding:5px 16px;
+  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:#ff4566;font-weight:600; margin-bottom:12px;
+}
+.pill-dot { width:6px;height:6px;border-radius:50%;background:#ff4566;animation:blink 1.5s ease infinite; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.main-title { font-family:'Fraunces',serif;font-size:3.4rem;font-weight:900;line-height:0.92;letter-spacing:-0.02em;margin-bottom:4px; }
+.mt-line1 { color:#1a1a1a; }
+.mt-line2 { font-style:italic; background:linear-gradient(90deg,#ff4566,#f7c948,#7b2fff); -webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+
+.big-ghost {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4.5rem;letter-spacing:0.08em;
+  color:transparent; -webkit-text-stroke:1.5px rgba(123,47,255,0.2);
+  line-height:0.85; margin-bottom:12px;
+}
+
+.subtitle { font-size:0.88rem;font-weight:400;color:#555;line-height:1.6;max-width:380px;margin-bottom:14px; }
+.subtitle strong { color:#ff4566;font-weight:600; }
+
+.tags { display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px; }
+.tag {
+  background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.1);
+  border-radius:100px;padding:4px 12px;
+  font-size:0.65rem;color:#444;font-weight:500;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* STAGE */
+.stage { width:100%;height:232px;position:relative;margin-bottom:2px;flex-shrink:0; }
+
+/* BOTTOM */
+.bottom-section { flex:1;padding:0 20px 0;display:flex;flex-direction:column;gap:12px; }
+
+.info-cards { display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px; }
+.info-card {
+  background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.9);border-radius:16px;
+  padding:12px;text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.07);
+}
+.ic-icon { font-size:1.4rem;margin-bottom:6px; }
+.ic-title { font-size:0.7rem;font-weight:600;color:#222;margin-bottom:3px;line-height:1.2; }
+.ic-text  { font-size:0.6rem;color:#777;line-height:1.4; }
+
+/* QR BAND */
+.qr-band {
+  background:linear-gradient(135deg,#1a1a2e,#2d1b6e,#1a1a2e);
+  border-radius:20px;padding:16px 20px;
+  display:flex;align-items:center;gap:18px;
+  box-shadow:0 8px 32px rgba(26,26,46,0.35);
+}
+.qr-box {
+  background:#fff;border-radius:12px;padding:8px;
+  width:98px;height:98px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
+#qrcode-flyer canvas, #qrcode-flyer img { border-radius:5px;display:block; }
+
+.qr-info { flex:1; }
+.qr-label { font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#f7c948;font-weight:600;margin-bottom:4px; }
+.qr-headline { font-family:'Fraunces',serif;font-size:1.2rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:7px; }
+.qr-steps { display:flex;flex-direction:column;gap:4px; }
+.qs { display:flex;align-items:center;gap:7px;font-size:0.68rem;color:rgba(255,255,255,0.75); }
+.qsn {
+  width:16px;height:16px;border-radius:50%;
+  background:linear-gradient(135deg,#ff4566,#f7c948);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.56rem;font-weight:700;color:#fff;flex-shrink:0;
+}
+.qr-privacy { font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:7px;font-weight:300; }
+
+/* FOOTER */
+.footer {
+  background:linear-gradient(90deg,#ff4566,#f7c948,#4ecdc4,#7b2fff);
+  padding:8px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;
+}
+.footer-left { font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;font-weight:600; }
+.footer-right { background:rgba(255,255,255,0.25);border-radius:100px;padding:3px 12px;font-size:0.58rem;color:#fff;font-weight:600;letter-spacing:0.1em;text-transform:uppercase; }
+
+@media print {
+  body { background:#fff;padding:0; }
+  .hint { display:none; }
+  .flyer { box-shadow:none; }
+}
+</style>
+</head>
+<body>
+
+<p class="hint">Para imprimir: <strong>Ctrl+P</strong> → Tamaño <strong>A4</strong> → Sin márgenes → Activar "Imprimir fondos"</p>
+
+<div class="flyer">
+  <div class="flyer-bg"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="blob b4"></div><div class="blob b5"></div><div class="blob b6"></div>
+  <div class="dotgrid"></div>
+
+  <div class="content">
+
+    <div class="top-bar">
+      <span class="top-bar-text">Convocatoria Abierta · Arte Comunitario · Todos los Niveles Bienvenidos</span>
+      <div class="top-dots">
+        <div class="td" style="background:#fff"></div>
+        <div class="td" style="background:rgba(255,255,255,0.5)"></div>
+        <div class="td" style="background:rgba(255,255,255,0.25)"></div>
+      </div>
+    </div>
+
+    <div class="logo-zone">
+      <div class="logo-icon">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <ellipse cx="15" cy="17" rx="10" ry="8" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/>
+          <circle cx="10" cy="18" r="2.2" fill="#fff"/>
+          <circle cx="15" cy="21" r="2.2" fill="#ffe066"/>
+          <circle cx="20" cy="18" r="2.2" fill="#a0f0e8"/>
+          <circle cx="18" cy="13" r="2" fill="#e0b0ff"/>
+          <circle cx="11" cy="13" r="1.8" fill="#ffb0b0"/>
+          <circle cx="20" cy="10" r="2.5" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+          <rect x="21" y="4" width="2" height="9" rx="1" fill="rgba(255,255,255,0.8)" transform="rotate(20 21 4)"/>
+          <rect x="23" y="11" width="2" height="4" rx="1" fill="#ffe066" transform="rotate(20 23 11)"/>
+        </svg>
+      </div>
+      <div class="logo-text-col">
+        <div class="logo-name">CulturaViva</div>
+        <div class="logo-sub">Arte · Comunidad · Territorio</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="eyebrow-pill"><div class="pill-dot"></div>Convocatoria de Artistas Locales</div>
+      <div class="main-title">
+        <div class="mt-line1">¿Eres</div>
+        <div class="mt-line2">artista?</div>
+      </div>
+      <div class="big-ghost">ÚNETE</div>
+      <p class="subtitle">
+        Si vives en nuestro barrio y te dedicas al arte en <strong>cualquier forma</strong>,
+        ya seas principiante, aficionado o profesional — <strong>¡te estamos buscando!</strong>
+      </p>
+      <div class="tags">
+        <span class="tag">🎨 Artes Visuales</span>
+        <span class="tag">🎭 Teatro</span>
+        <span class="tag">🎶 Música</span>
+        <span class="tag">✍️ Literatura</span>
+        <span class="tag">🎬 Audiovisual</span>
+        <span class="tag">💃 Danza</span>
+        <span class="tag">🧵 Diseño</span>
+        <span class="tag">📸 Fotografía</span>
+      </div>
+    </div>
+
+    <!-- ARTISTS ILLUSTRATION STAGE -->
+    <div class="stage">
+      <svg width="100%" height="232" viewBox="0 0 595 232" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <line x1="40" y1="220" x2="555" y2="220" stroke="rgba(0,0,0,0.07)" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+        <!-- ══ PAINTER (far left) ══ -->
+        <g transform="translate(32,18)">
+          <ellipse cx="50" cy="200" rx="36" ry="7" fill="rgba(0,0,0,0.06)"/>
+          <!-- legs -->
+          <rect x="35" y="148" width="13" height="54" rx="6.5" fill="#5d4037"/>
+          <rect x="52" y="148" width="13" height="54" rx="6.5" fill="#5d4037"/>
+          <ellipse cx="41" cy="201" rx="12" ry="5" fill="#37474f"/>
+          <ellipse cx="59" cy="201" rx="12" ry="5" fill="#37474f"/>
+          <!-- torso orange -->
+          <rect x="29" y="94" width="42" height="60" rx="10" fill="#ff7043"/>
+          <!-- neck -->
+          <rect x="43" y="83" width="14" height="17" rx="7" fill="#f5c5a3"/>
+          <!-- head -->
+          <ellipse cx="50" cy="69" rx="22" ry="23" fill="#f5c5a3"/>
+          <!-- hair dark -->
+          <ellipse cx="50" cy="50" rx="23" ry="14" fill="#3e2723"/>
+          <rect x="28" y="50" width="8" height="20" rx="4" fill="#3e2723"/>
+          <rect x="64" y="50" width="8" height="20" rx="4" fill="#3e2723"/>
+          <!-- eyes -->
+          <ellipse cx="42" cy="68" rx="4" ry="4.5" fill="#fff"/>
+          <ellipse cx="58" cy="68" rx="4" ry="4.5" fill="#fff"/>
+          <circle cx="43" cy="68" r="2.5" fill="#1a1a1a"/>
+          <circle cx="59" cy="68" r="2.5" fill="#1a1a1a"/>
+          <circle cx="44" cy="67" r="1" fill="#fff"/>
+          <circle cx="60" cy="67" r="1" fill="#fff"/>
+          <path d="M43 78 Q50 84 57 78" stroke="#c0806a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <!-- right arm + brush -->
+          <path d="M71 105 Q90 112 87 132" stroke="#f5c5a3" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <rect x="82" y="127" width="5" height="40" rx="2.5" fill="#8B5E3C" transform="rotate(-15 82 127)"/>
+          <rect x="84" y="159" width="5" height="11" rx="2" fill="#e0e0e0" transform="rotate(-15 84 159)"/>
+          <ellipse cx="82" cy="170" rx="4" ry="7" fill="#4ecdc4" transform="rotate(-15 82 170)"/>
+          <!-- left arm + palette -->
+          <path d="M29 105 Q10 112 14 134" stroke="#f5c5a3" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <ellipse cx="8" cy="142" rx="20" ry="15" fill="#fff" stroke="#e0d0c0" stroke-width="1.5" transform="rotate(-20 8 142)"/>
+          <circle cx="-2" cy="136" r="4" fill="#ff4566" transform="rotate(-20 -2 136)"/>
+          <circle cx="8"  cy="132" r="4" fill="#f7c948" transform="rotate(-20 8 132)"/>
+          <circle cx="18" cy="136" r="4" fill="#4ecdc4" transform="rotate(-20 18 136)"/>
+          <circle cx="20" cy="147" r="4" fill="#7b2fff" transform="rotate(-20 20 147)"/>
+          <circle cx="6"  cy="148" r="3.5" fill="#ff8c42" transform="rotate(-20 6 148)"/>
+          <circle cx="-1" cy="148" r="4"  fill="#f0e8d8" stroke="#d0c0b0" stroke-width="1" transform="rotate(-20 -1 148)"/>
+          <!-- paint splats -->
+          <circle cx="96" cy="82"  r="5"  fill="rgba(255,69,102,0.3)"/>
+          <circle cx="107" cy="97" r="3"  fill="rgba(247,201,72,0.45)"/>
+          <circle cx="88" cy="92"  r="4"  fill="rgba(78,205,196,0.38)"/>
+          <circle cx="101" cy="71" r="6"  fill="rgba(123,47,255,0.22)"/>
+        </g>
+
+        <!-- ══ GUITARIST (center-left) ══ -->
+        <g transform="translate(178,12)">
+          <ellipse cx="52" cy="206" rx="40" ry="7" fill="rgba(0,0,0,0.06)"/>
+          <!-- legs jeans -->
+          <rect x="36" y="150" width="14" height="56" rx="7" fill="#1565c0"/>
+          <rect x="54" y="150" width="14" height="56" rx="7" fill="#1565c0"/>
+          <rect x="36" y="172" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+          <rect x="54" y="172" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+          <ellipse cx="43" cy="205" rx="13" ry="5" fill="#212121"/>
+          <ellipse cx="61" cy="205" rx="13" ry="5" fill="#212121"/>
+          <!-- torso teal -->
+          <rect x="29" y="94" width="46" height="62" rx="11" fill="#00897b"/>
+          <path d="M45 94 L52 108 L59 94" fill="#00695c"/>
+          <!-- neck -->
+          <rect x="44" y="82" width="14" height="18" rx="7" fill="#d4956a"/>
+          <!-- head -->
+          <ellipse cx="51" cy="67" rx="23" ry="25" fill="#d4956a"/>
+          <!-- curly hair -->
+          <ellipse cx="51" cy="47" rx="24" ry="16" fill="#1a1a1a"/>
+          <circle cx="33" cy="54" r="9"  fill="#1a1a1a"/>
+          <circle cx="69" cy="54" r="9"  fill="#1a1a1a"/>
+          <circle cx="39" cy="45" r="8"  fill="#1a1a1a"/>
+          <circle cx="63" cy="45" r="8"  fill="#1a1a1a"/>
+          <circle cx="51" cy="42" r="9"  fill="#1a1a1a"/>
+          <!-- eyes -->
+          <ellipse cx="43" cy="66" rx="4" ry="4.5" fill="#fff"/>
+          <ellipse cx="59" cy="66" rx="4" ry="4.5" fill="#fff"/>
+          <circle cx="44" cy="66" r="2.5" fill="#1a1a1a"/>
+          <circle cx="60" cy="66" r="2.5" fill="#1a1a1a"/>
+          <circle cx="45" cy="65" r="1"   fill="#fff"/>
+          <circle cx="61" cy="65" r="1"   fill="#fff"/>
+          <!-- singing mouth -->
+          <path d="M43 78 Q51 87 59 78" stroke="#a06040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="51" cy="81" rx="6" ry="4" fill="#c07050"/>
+          <rect x="45" y="80" width="12" height="3" rx="1.5" fill="#fff"/>
+          <!-- GUITAR -->
+          <g transform="rotate(-12 52 155)">
+            <!-- neck -->
+            <rect x="58" y="76" width="9" height="72" rx="4.5" fill="#795548"/>
+            <!-- frets -->
+            <line x1="58" y1="93"  x2="67" y2="93"  stroke="#bcaaa4" stroke-width="1.2"/>
+            <line x1="58" y1="103" x2="67" y2="103" stroke="#bcaaa4" stroke-width="1.2"/>
+            <line x1="58" y1="113" x2="67" y2="113" stroke="#bcaaa4" stroke-width="1.2"/>
+            <line x1="58" y1="123" x2="67" y2="123" stroke="#bcaaa4" stroke-width="1.2"/>
+            <line x1="58" y1="133" x2="67" y2="133" stroke="#bcaaa4" stroke-width="1.2"/>
+            <line x1="58" y1="143" x2="67" y2="143" stroke="#bcaaa4" stroke-width="1.2"/>
+            <!-- strings -->
+            <line x1="60" y1="78" x2="60" y2="150" stroke="rgba(255,255,255,0.55)" stroke-width="0.7"/>
+            <line x1="62" y1="78" x2="62" y2="150" stroke="rgba(255,255,255,0.55)" stroke-width="0.7"/>
+            <line x1="64" y1="78" x2="64" y2="150" stroke="rgba(255,255,255,0.45)" stroke-width="0.7"/>
+            <!-- headstock -->
+            <rect x="56" y="70" width="14" height="10" rx="4" fill="#5d4037"/>
+            <circle cx="59" cy="75" r="2.5" fill="#c8a96e"/>
+            <circle cx="69" cy="75" r="2.5" fill="#c8a96e"/>
+            <!-- body lower bout -->
+            <ellipse cx="62" cy="168" rx="27" ry="29" fill="#e53935"/>
+            <!-- upper bout -->
+            <ellipse cx="62" cy="144" rx="21" ry="19" fill="#e53935"/>
+            <!-- waist -->
+            <rect x="43" y="150" width="38" height="14" fill="#e53935"/>
+            <!-- sound hole -->
+            <circle cx="62" cy="162" r="9" fill="#b71c1c"/>
+            <circle cx="62" cy="162" r="7" fill="rgba(0,0,0,0.35)"/>
+            <!-- guitar highlight -->
+            <ellipse cx="54" cy="152" rx="5" ry="13" fill="rgba(255,255,255,0.13)" transform="rotate(-12 54 152)"/>
+            <!-- bridge -->
+            <rect x="54" y="175" width="16" height="4" rx="2" fill="#5d4037"/>
+          </g>
+          <!-- right arm strumming -->
+          <path d="M75 116 Q92 126 85 150" stroke="#d4956a" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <!-- left arm on fretboard -->
+          <path d="M29 112 Q14 122 18 144" stroke="#d4956a" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <!-- music notes -->
+          <text x="94"  y="52" font-size="18" fill="#f7c948" opacity="0.92" font-family="serif">♪</text>
+          <text x="110" y="34" font-size="13" fill="#ff4566" opacity="0.8"  font-family="serif">♫</text>
+          <text x="80"  y="32" font-size="11" fill="#7b2fff" opacity="0.7"  font-family="serif">♩</text>
+          <text x="118" y="62" font-size="15" fill="#4ecdc4" opacity="0.75" font-family="serif">♬</text>
+          <text x="72"  y="22" font-size="9"  fill="#f7c948" opacity="0.55" font-family="serif">♪</text>
+        </g>
+
+        <!-- ══ PHOTOGRAPHER (center-right) ══ -->
+        <g transform="translate(348,20)">
+          <ellipse cx="50" cy="198" rx="38" ry="7" fill="rgba(0,0,0,0.06)"/>
+          <rect x="33" y="148" width="14" height="52" rx="7" fill="#424242"/>
+          <rect x="51" y="148" width="14" height="52" rx="7" fill="#424242"/>
+          <ellipse cx="40" cy="199" rx="12" ry="5" fill="#1a1a1a"/>
+          <ellipse cx="58" cy="199" rx="12" ry="5" fill="#1a1a1a"/>
+          <!-- torso purple hoodie -->
+          <rect x="27" y="94" width="46" height="60" rx="11" fill="#6a1b9a"/>
+          <rect x="35" y="130" width="30" height="18" rx="5" fill="rgba(0,0,0,0.18)"/>
+          <!-- neck -->
+          <rect x="43" y="82" width="14" height="18" rx="7" fill="#fbd5b5"/>
+          <!-- head -->
+          <ellipse cx="50" cy="67" rx="22" ry="24" fill="#fbd5b5"/>
+          <!-- hair red ponytail -->
+          <ellipse cx="50" cy="48" rx="22" ry="14" fill="#b71c1c"/>
+          <rect x="28" y="48" width="8" height="22" rx="4" fill="#b71c1c"/>
+          <path d="M28 57 Q12 65 14 85" stroke="#b71c1c" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <circle cx="14" cy="84" r="5" fill="#ff4566"/>
+          <!-- eyes -->
+          <ellipse cx="42" cy="66" rx="4" ry="4.5" fill="#fff"/>
+          <ellipse cx="58" cy="66" rx="4" ry="4.5" fill="#fff"/>
+          <circle cx="43" cy="66" r="2.5" fill="#3e2723"/>
+          <circle cx="59" cy="66" r="2.5" fill="#3e2723"/>
+          <circle cx="44" cy="65" r="1"   fill="#fff"/>
+          <circle cx="60" cy="65" r="1"   fill="#fff"/>
+          <path d="M43 76 Q49 83 56 76" stroke="#c0806a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <!-- arms -->
+          <path d="M73 105 Q88 108 82 126" stroke="#fbd5b5" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <path d="M27 105 Q12 110 16 128" stroke="#fbd5b5" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <!-- CAMERA -->
+          <rect x="10" y="110" width="80" height="53" rx="10" fill="#212121"/>
+          <rect x="14" y="113" width="72" height="47" rx="8" fill="#2d2d2d"/>
+          <rect x="29" y="101" width="24" height="13" rx="6" fill="#212121"/>
+          <!-- lens rings -->
+          <circle cx="50" cy="137" r="19" fill="#111"/>
+          <circle cx="50" cy="137" r="15" fill="#1a1a2e"/>
+          <circle cx="50" cy="137" r="11" fill="#0d0d1e"/>
+          <circle cx="50" cy="137" r="7"  fill="#000d20"/>
+          <circle cx="44" cy="131" r="3.5" fill="rgba(255,255,255,0.13)"/>
+          <circle cx="56" cy="142" r="2"   fill="rgba(255,255,255,0.07)"/>
+          <circle cx="50" cy="137" r="22"  fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <!-- shutter -->
+          <circle cx="74" cy="116" r="5"  fill="#555"/>
+          <circle cx="74" cy="116" r="3"  fill="#888"/>
+          <!-- flash -->
+          <circle cx="22" cy="118" r="4"  fill="#f7c948" opacity="0.85"/>
+          <!-- sparkle -->
+          <text x="86" y="104" font-size="14" fill="#f7c948" opacity="0.9">✦</text>
+          <text x="96" y="124" font-size="10" fill="#fff"    opacity="0.5">✦</text>
+        </g>
+
+        <!-- ══ DANCER (far right) ══ -->
+        <g transform="translate(484,16)">
+          <ellipse cx="44" cy="202" rx="33" ry="7" fill="rgba(0,0,0,0.06)"/>
+          <!-- flowing skirt -->
+          <path d="M24 145 Q10 188 8 202 Q30 194 44 200 Q58 194 80 202 Q78 188 64 145 Z" fill="#e91e8c"/>
+          <!-- skirt detail lines -->
+          <path d="M30 162 Q20 184 16 202" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" fill="none"/>
+          <path d="M44 164 Q44 184 42 202" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" fill="none"/>
+          <path d="M58 162 Q65 182 70 200" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" fill="none"/>
+          <!-- torso -->
+          <rect x="28" y="94" width="32" height="55" rx="8" fill="#e91e8c"/>
+          <!-- neck -->
+          <rect x="38" y="83" width="12" height="17" rx="6" fill="#f5c5a3"/>
+          <!-- head tilted -->
+          <ellipse cx="44" cy="67" rx="21" ry="23" fill="#f5c5a3" transform="rotate(7 44 67)"/>
+          <!-- hair bun -->
+          <ellipse cx="46" cy="49" rx="21" ry="13" fill="#4a148c"/>
+          <rect x="26" y="49" width="7" height="20" rx="3.5" fill="#4a148c"/>
+          <circle cx="54" cy="44" r="11" fill="#4a148c"/>
+          <line x1="49" y1="36" x2="59" y2="47" stroke="#f7c948" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="48" cy="35" r="3.2" fill="#f7c948"/>
+          <!-- eyes -->
+          <ellipse cx="37" cy="66" rx="3.5" ry="4"   fill="#fff"/>
+          <ellipse cx="51" cy="67" rx="3.5" ry="4"   fill="#fff"/>
+          <circle cx="38" cy="66" r="2.2"              fill="#4a148c"/>
+          <circle cx="52" cy="67" r="2.2"              fill="#4a148c"/>
+          <circle cx="38.5" cy="65.2" r="0.9"          fill="#fff"/>
+          <circle cx="52.5" cy="66.2" r="0.9"          fill="#fff"/>
+          <!-- lashes -->
+          <path d="M34 63 Q35 61 37 62" stroke="#4a148c" stroke-width="1" fill="none"/>
+          <path d="M48 63 Q50 61 52 63" stroke="#4a148c" stroke-width="1" fill="none"/>
+          <path d="M37 75 Q43 82 49 75" stroke="#c0806a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <!-- raised left arm -->
+          <path d="M28 104 Q6 88 1 70" stroke="#f5c5a3" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <circle cx="1" cy="68" r="7" fill="#f5c5a3"/>
+          <!-- right arm -->
+          <path d="M60 108 Q74 118 77 140" stroke="#f5c5a3" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <!-- shoes -->
+          <ellipse cx="23" cy="201" rx="10" ry="5" fill="#ffd600" transform="rotate(-10 23 201)"/>
+          <ellipse cx="64" cy="201" rx="10" ry="5" fill="#ffd600" transform="rotate(10 64 201)"/>
+          <!-- sparkles -->
+          <text x="-12" y="53" font-size="13" fill="#f7c948" opacity="0.88">✦</text>
+          <text x="74"  y="62" font-size="10" fill="#ff4566" opacity="0.72">✦</text>
+          <text x="-6"  y="84" font-size="9"  fill="#7b2fff" opacity="0.62">✦</text>
+          <text x="81"  y="86" font-size="12" fill="#4ecdc4" opacity="0.72">✦</text>
+          <text x="68"  y="40" font-size="8"  fill="#f7c948" opacity="0.5">✦</text>
+        </g>
+
+        <!-- ground fade -->
+        <rect x="0" y="218" width="595" height="14" fill="url(#groundFade)"/>
+        <defs>
+          <linearGradient id="groundFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(0,0,0,0.05)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- BOTTOM SECTION -->
+    <div class="bottom-section">
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="ic-icon">🎨</div>
+          <div class="ic-title">Todas las disciplinas</div>
+          <div class="ic-text">Música, danza, teatro, artes visuales, escritura y más</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🌱</div>
+          <div class="ic-title">Todos los niveles</div>
+          <div class="ic-text">Principiante, aficionado o profesional — todos bienvenidos</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🤝</div>
+          <div class="ic-title">Red comunitaria</div>
+          <div class="ic-text">Proyectos, talleres, colaboraciones y actividades culturales</div>
+        </div>
+      </div>
+
+      <div class="qr-band">
+        <div class="qr-box">
+          <div id="qrcode-flyer"></div>
+        </div>
+        <div class="qr-info">
+          <div class="qr-label">✦ Inscríbete gratis ahora</div>
+          <div class="qr-headline">Escanea el QR y completa<br>el formulario</div>
+          <div class="qr-steps">
+            <div class="qs"><div class="qsn">1</div><span>Apunta tu cámara al código QR</span></div>
+            <div class="qs"><div class="qsn">2</div><span>Completa el registro en 2 minutos</span></div>
+            <div class="qs"><div class="qsn">3</div><span>¡Te contactamos pronto! 🎉</span></div>
+          </div>
+          <p class="qr-privacy">🔒 Datos usados exclusivamente para fines culturales · Ley 1581 de 2012</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-left">CulturaViva · Arte · Comunidad · Territorio</span>
+      <div class="footer-right">Inscripción Gratuita y Abierta</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+window.addEventListener('load', () => {
+  // QR apunta al formulario en la misma carpeta
+  const base = window.location.href.replace(/[^/]*$/, '');
+  const formUrl = base + 'cultura-viva-formulario.html';
+  new QRCode(document.getElementById('qrcode-flyer'), {
+    text: formUrl,
+    width: 80,
+    height: 80,
+    colorDark: '#0d0d0d',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+});
+</script>
+</body>
+</html>
