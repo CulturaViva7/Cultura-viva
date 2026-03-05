@@ -548,9 +548,7 @@ body {
 
 <script>
 window.addEventListener('load', () => {
-  // QR apunta al formulario en la misma carpeta
-  const base = window.location.href.replace(/[^/]*$/, '');
-  const formUrl = base + 'cultura-viva-formulario.html';
+  const formUrl = 'https://culturaviva7.github.io/Cultura-viva/cultura-viva-formulario.html';
   new QRCode(document.getElementById('qrcode-flyer'), {
     text: formUrl,
     width: 80,
